@@ -22,7 +22,6 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // Sort
   const dir = sortDir === "desc" ? -1 : 1;
   filtered = [...filtered].sort((a, b) => {
     const aVal = a[sortBy as keyof User];

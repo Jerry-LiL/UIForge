@@ -24,7 +24,6 @@ export function Tabs({ tabs, defaultTab }: TabsProps) {
 
     e.preventDefault();
     setActiveId(tabs[nextIndex].id);
-    // Focus the new tab button
     const btn = document.getElementById(`tab-${tabs[nextIndex].id}`);
     btn?.focus();
   };

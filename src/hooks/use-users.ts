@@ -49,7 +49,6 @@ export function useUsers(params: UsersParams) {
   });
 }
 
-// Optimistic update with rollback
 export function useUpdateUser() {
   const queryClient = useQueryClient();
 
@@ -71,7 +70,6 @@ export function useUpdateUser() {
       return { previous };
     },
     onError: (_err, _updated, context) => {
-      // Rollback on failure
       if (context?.previous) {
         for (const [key, data] of context.previous) {
           queryClient.setQueryData(key, data);

@@ -18,10 +18,8 @@ describe("useDebounce", () => {
     value = "b";
     rerender();
 
-    // Before timeout, still old value
     expect(result.current).toBe("a");
 
-    // Wait for debounce
     await act(async () => {
       await new Promise((r) => setTimeout(r, 100));
     });

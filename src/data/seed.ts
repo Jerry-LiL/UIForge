@@ -1,6 +1,3 @@
-// Deterministic seed data for the mock API.
-// Each user has a unique id, name, email, role, status, and join date.
-
 export interface User {
   id: number;
   name: string;
@@ -63,14 +60,12 @@ function generateUsers(count: number): User[] {
 
 export const users: User[] = generateUsers(48);
 
-// Stats derived from seed data, used by the dashboard
 export function getStats() {
   const total = users.length;
   const active = users.filter((u) => u.status === "active").length;
   const admins = users.filter((u) => u.role === "admin").length;
   const editors = users.filter((u) => u.role === "editor").length;
 
-  // Monthly signups for the chart
   const monthlyCounts: Record<string, number> = {};
   for (const u of users) {
     const month = u.joinedAt.slice(0, 7); // "YYYY-MM"
