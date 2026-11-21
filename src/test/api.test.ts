@@ -16,6 +16,15 @@ describe("API: /api/users", () => {
     expect(body.totalPages).toBe(5);
   });
 
+  it("falls back to defaults for non-numeric page and limit", async () => {
+    const req = new NextRequest("http://localhost:3000/api/users?page=abc&limit=xyz");
+    const res = await getUsers(req);
+    const body = await res.json();
+    expect(body.page).toBe(1);
+    expect(body.data.length).toBe(10);
+    expect(body.totalPages).toBe(5);
+  });
+
   it("filters users by search query", async () => {
     const req = new NextRequest("http://localhost:3000/api/users?search=Alice");
     const res = await getUsers(req);

@@ -4,13 +4,18 @@ import { users, User } from "@/data/seed";
 // In-memory store so mutations persist across requests within one server session
 const store = [...users];
 
+function toInt(value: string | null, fallback: number): number {
+  const n = parseInt(value ?? "", 10);
+  return Number.isNaN(n) ? fallback : n;
+}
+
 export async function GET(req: NextRequest) {
   const url = req.nextUrl;
   const search = (url.searchParams.get("search") || "").toLowerCase();
   const sortBy = url.searchParams.get("sortBy") || "id";
   const sortDir = url.searchParams.get("sortDir") || "asc";
-  const page = Math.max(1, parseInt(url.searchParams.get("page") || "1", 10));
-  const limit = Math.min(50, Math.max(1, parseInt(url.searchParams.get("limit") || "10", 10)));
+  const page = Math.max(1, toInt(url.searchParams.get("page"), 1));
+  const limit = Math.min(50, Math.max(1, toInt(url.searchParams.get("limit"), 10)));
 
   let filtered = store;
   if (search) {
